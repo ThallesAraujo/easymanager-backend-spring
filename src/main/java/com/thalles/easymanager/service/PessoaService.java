@@ -10,18 +10,32 @@ import com.thalles.easymanager.repository.PessoaRepository;
 
 @Service
 public class PessoaService {
-	
+
 	@Autowired
 	private PessoaRepository repositorio;
-	
+
 	public Pessoa atualizar(Long id, Pessoa pessoa) {
+		Pessoa instanciaSalva = procurarPeloId(id);
+		BeanUtils.copyProperties(pessoa, instanciaSalva, "id");
+		return repositorio.save(instanciaSalva);
+
+	}
+
+	private Pessoa procurarPeloId(Long id) {
 		Pessoa instanciaSalva = repositorio.findOne(id);
 		if(instanciaSalva == null) {
 			throw new EmptyResultDataAccessException(1);
 		}else {
-			BeanUtils.copyProperties(pessoa, instanciaSalva, "id");
-			return repositorio.save(instanciaSalva);
+			return instanciaSalva;
+		}
 	}
+
+	public void atualizarPropriedadeAtivo(Long id, Boolean ativo) {
+		
+		Pessoa instanciaSalva = procurarPeloId(id);
+		instanciaSalva.setAtivo(ativo);
+		repositorio.save(instanciaSalva);
+		
 	}
 
 }
