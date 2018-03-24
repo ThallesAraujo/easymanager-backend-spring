@@ -24,6 +24,7 @@ import com.thalles.easymanager.event.RecursoCriadoEvent;
 import com.thalles.easymanager.exceptionhandler.EasyManagerExceptionHandler.Erro;
 import com.thalles.easymanager.model.Lancamento;
 import com.thalles.easymanager.repository.LancamentoRepository;
+import com.thalles.easymanager.repository.filter.LancamentoFilter;
 import com.thalles.easymanager.service.LancamentoService;
 import com.thalles.easymanager.service.exception.PessoaInexistenteOuInativaException;
 
@@ -44,8 +45,8 @@ public class LancamentoResource {
 	private MessageSource messageSource;
 
 	@GetMapping
-	public List<Lancamento> listar(){
-		return repositorio.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter){
+		return repositorio.filtrar(lancamentoFilter);
 	}
 	
 	@GetMapping("/{codigo}")
