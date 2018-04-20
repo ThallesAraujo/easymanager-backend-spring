@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,15 +39,17 @@ public class CategoriaResource {
 //		ResponseEntity.noContent().build
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public List<Categoria> listar(){
 		return repositorio.findAll();
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 //	Para retornar um verbo HTTP mais adequado para opção de criar algum recurso no banco de dados,
 //	utiliza-se a anotação ResponseStatus(HttpStatus.<<STATUS>>) caso não se utilize o ResponseEntity
 //	Notação ResquestBody: indicar que a resposta para a requisição deve ser um objeto
-//  Notaçaõ Valid: validação do objeto
+//  Notação Valid: validação do objeto
 	public ResponseEntity<Categoria> adicionar(@Valid @RequestBody Categoria categoria, HttpServletResponse resposta) {
 		Categoria categoriaSalva =  repositorio.save(categoria);
 		
@@ -55,6 +58,7 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	//PathVariable: indica a variável indicada no GetMapping ({codigo})
 	public ResponseEntity<?> buscarPeloCodigo(@PathVariable Long codigo) {
 		//repositorio.getOne(<<id>>): utilizado somente quando assume-se que o objeto já existe
