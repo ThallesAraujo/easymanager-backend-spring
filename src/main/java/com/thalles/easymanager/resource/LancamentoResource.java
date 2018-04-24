@@ -30,6 +30,7 @@ import com.thalles.easymanager.exceptionhandler.EasyManagerExceptionHandler.Erro
 import com.thalles.easymanager.model.Lancamento;
 import com.thalles.easymanager.repository.LancamentoRepository;
 import com.thalles.easymanager.repository.filter.LancamentoFilter;
+import com.thalles.easymanager.repository.projection.ResumoLancamentoProjection;
 import com.thalles.easymanager.service.LancamentoService;
 import com.thalles.easymanager.service.exception.PessoaInexistenteOuInativaException;
 
@@ -53,6 +54,12 @@ public class LancamentoResource {
 	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
 	public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable){
 		return repositorio.filtrar(lancamentoFilter, pageable);
+	}
+	
+	@GetMapping (params = "resumo")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_LANCAMENTO') and #oauth2.hasScope('read')")
+	public Page<ResumoLancamentoProjection> resumir(LancamentoFilter lancamentoFilter, Pageable pageable){
+		return repositorio.resumir(lancamentoFilter, pageable);
 	}
 	
 	@GetMapping("/{codigo}")
