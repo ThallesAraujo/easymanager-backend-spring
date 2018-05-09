@@ -11,9 +11,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import com.thalles.easymanager.config.property.EasyManagerApiProperty;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -21,7 +24,9 @@ public class CorsFilter implements Filter{
 	
 	//TODO: criar uma página simples para realizar os testes feitos no curso
 	
-	private String origemPermitida = "http://localhost:8000"; //TODO: Configurar para diferentes ambientes (produção, testes...)
+	@Autowired
+	
+	private EasyManagerApiProperty apiProperty;
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
@@ -33,12 +38,12 @@ public class CorsFilter implements Filter{
 		
 		//os headers a seguir estão fora da condicional por necessitarem serem enviados em todas as requisições,
 		//independentemente do método HTTP que seja chamado
-		response.setHeader("Access-Control-Allow-Origin", origemPermitida);
+		response.setHeader("Access-Control-Allow-Origin", apiProperty.getOrigemPermitida());
 		
 		//Suporte ao Cookie do RefreshToken
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
-		if(request.getMethod().equals("OPTIONS") && request.getHeader("Origin").equals(origemPermitida)) {
+		if(request.getMethod().equals("OPTIONS") && request.getHeader("Origin").equals(apiProperty.getOrigemPermitida())) {
 			
 			response.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, POST, OPTIONS");
 			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
