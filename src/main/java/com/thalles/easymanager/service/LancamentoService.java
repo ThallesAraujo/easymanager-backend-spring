@@ -38,7 +38,10 @@ public class LancamentoService {
 			validarPessoa(lancamento);
 		}
 		
-		BeanUtils.copyProperties(saved, lancamento, "codigo");
+		//Muito cuidado ao usar: o primeiro parâmetro é o item 
+		//cujas propriedades serão copiadas, o segundo é o objeto que
+		//receberá as cópias!
+		BeanUtils.copyProperties(lancamento, saved, "codigo");
 		
 		return lancamentoRepository.save(saved);
 		

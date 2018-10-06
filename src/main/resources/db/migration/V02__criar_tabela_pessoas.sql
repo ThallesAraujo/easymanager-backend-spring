@@ -1,13 +1,13 @@
 CREATE TABLE pessoa(
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(25) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
     ativo BOOLEAN NOT NULL,
     logradouro VARCHAR(50),
     numero VARCHAR(10),
     complemento VARCHAR(20),
-    bairro VARCHAR(20),
-    cep VARCHAR(8),
-    cidade VARCHAR(20),
+    bairro VARCHAR(50),
+    cep VARCHAR(20),
+    cidade VARCHAR(25),
     estado VARCHAR(2)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

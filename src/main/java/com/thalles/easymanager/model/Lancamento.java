@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="lancamento")
 public class Lancamento {
@@ -29,17 +31,17 @@ public class Lancamento {
 	private String descricao;
 	
 	@NotNull
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSZ")
 	@Column(name = "data_vencimento")
 	private LocalDate dataVencimento;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	
 	@Column (name = "data_pagamento")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss.SSSZ")
 	private LocalDate dataPagamento;
 	
 	@NotNull
 	private BigDecimal valor;
-	
 	private String observacao;
 	
 	@NotNull

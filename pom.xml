@@ -76,9 +76,7 @@
 		<dependency>
 
 			<groupId>com.fasterxml.jackson.datatype</groupId>
-
 			<artifactId>jackson-datatype-jsr310</artifactId>
-
 		</dependency>
 		
 		<!-- Biblioteca para obter causa da exceção -->
@@ -96,10 +94,10 @@
 		
 		<!-- Hibernate JPA Modelgen -->
 		
-		<!--  <dependency>
+		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-jpamodelgen</artifactId>
-		</dependency> -->
+		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
