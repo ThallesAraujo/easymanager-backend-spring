@@ -39,7 +39,7 @@ public class CategoriaResource {
 //		ResponseEntity.noContent().build
 	
 	@GetMapping
-	
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 	public List<Categoria> listar(){
 		return repositorio.findAll();
 	}
