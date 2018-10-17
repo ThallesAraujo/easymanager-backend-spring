@@ -16,10 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.thalles.easymanager.model.Categoria_;
 import com.thalles.easymanager.model.Lancamento;
-import com.thalles.easymanager.model.Lancamento_;
-import com.thalles.easymanager.model.Pessoa_;
 import com.thalles.easymanager.repository.filter.LancamentoFilter;
 import com.thalles.easymanager.repository.projection.ResumoLancamentoProjection;
 
@@ -55,14 +52,14 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		Root<Lancamento> root = criteria.from(Lancamento.class);
 
 		criteria.select(builder.construct(ResumoLancamentoProjection.class, 
-				root.get(Lancamento_.codigo),
-				root.get(Lancamento_.descricao),
-				root.get(Lancamento_.dataVencimento),
-				root.get(Lancamento_.dataPagamento),
-				root.get(Lancamento_.valor),
-				root.get(Lancamento_.tipo),
-				root.get(Lancamento_.categoria).get(Categoria_.nome),
-				root.get(Lancamento_.pessoa).get(Pessoa_.nome)
+				root.get("codigo"),
+				root.get("descricao"),
+				root.get("dataVencimento"),
+				root.get("dataPagamento"),
+				root.get("valor"),
+				root.get("tipo"),
+				root.get("categoria").get("nome"),
+				root.get("pessoa").get("nome")
 				));
 
 		//restricoes
@@ -109,7 +106,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		
 		if(!StringUtils.isEmpty(filter.getDescricao())) {
 			predicates.add(builder.like(
-					builder.lower(root.get(Lancamento_.descricao)), "%" + filter.getDescricao().toLowerCase() + "%"));
+					builder.lower(root.get("descricao")), "%" + filter.getDescricao().toLowerCase() + "%"));
 		}
 		
 		if(filter.getDataVencimentoDe() != null) {
@@ -119,7 +116,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		
 		if(filter.getDataVencimentoAte() != null) {
 			predicates.add(
-					builder.lessThanOrEqualTo(root.get(Lancamento_.dataVencimento), filter.getDataVencimentoAte()));
+					builder.lessThanOrEqualTo(root.get("dataVencimento"), filter.getDataVencimentoAte()));
 		}
 		
 		return predicates.toArray(new Predicate[predicates.size()]);
