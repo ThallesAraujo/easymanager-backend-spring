@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import com.thalles.easymanager.config.property.EasyManagerApiProperty;
 
+
 @SpringBootApplication
 @EnableConfigurationProperties(EasyManagerApiProperty.class)
 public class EasymanagerApiApplication {
