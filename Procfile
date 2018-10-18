@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar target/easymanager*.jar
+web: java -Dserver.port=$PORT -Dspring.profiles.active=oauth-security $JAVA_OPTS -jar target/easymanager*.jar
